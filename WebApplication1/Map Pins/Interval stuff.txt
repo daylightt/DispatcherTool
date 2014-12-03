@@ -1,0 +1,26 @@
+            //foreach (var interval in db.W6CALENDAR_WEEKLY_INTERVALS.ToList())
+            //{
+            //    var start = interval.Seconds_To_Start/3600;
+            //    var end = interval.Seconds_To_Finish/3600;
+            //    var total = end - start;
+            //    var status = interval.Status;
+
+            //    Console.WriteLine(start + " - " + end + " " + status + " " + total);
+            //}
+
+            //foreach (var item in viewModel.engineers)
+            //{
+
+            //    var calendar = item.Calendar;
+            //    var weekly = db.W6CALENDAR_WEEKLY_INTERVALS.Where(k => k.W6Key == calendar).ToList();
+
+            //    if (weekly.Count != 0)
+            //    {
+            //        var status = weekly[0].Status;
+            //        var start = weekly[0].Seconds_To_Start;
+            //        var end = weekly[0].Seconds_To_Finish;
+            //        var total = (end - start)/3600;
+
+            //        Console.WriteLine(total + " - " + status);
+            //    }
+            //}

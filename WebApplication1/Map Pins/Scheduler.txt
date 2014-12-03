@@ -1,0 +1,194 @@
+<script>
+    scheduler.locale.labels.timeline_tab = "Timeline";
+    scheduler.createTimelineView({
+        name: "timeline",
+        x_unit: "minute",//measuring unit of the X-Axis.
+        x_date: "%H:%i", //date format of the X-Axis
+        x_step: 30,      //X-Axis step in 'x_unit's
+        x_size: 12,      //X-Axis length specified as the total number of 'x_step's
+        x_start: 18,     //X-Axis offset in 'x_unit's
+        x_length: 48,    //number of 'x_step's that will be scrolled at a time
+
+        y_unit:
+         [{ key: 1, label: "Room 1" },
+          { key: 2, label: "Room 2" },
+          { key: 3, label: "Room 3" }],
+        y_property: "room_id",
+        render: "bar"             //view mode
+    });
+
+    scheduler.config.lightbox.sections = [
+    { name: "description", height: 130, map_to: "text", type: "textarea", focus: true },
+    { name: "custom", height: 23, type: "select", options: sections, map_to: "room_id" },
+    { name: "time", height: 72, type: "time", map_to: "auto" }
+    ];
+
+
+    scheduler.init("scheduler_here");
+    scheduler.parse([
+        {
+            text: "Conference", start_date: "17/09/2012 12:00", end_date: "18/09/2012 21:00",
+            room_id: "1"
+        },
+        {
+            text: "Meeting", start_date: "17/09/2012 09:00", end_date: "17/09/2012 21:00",
+            room_id: "2"
+        },
+        {
+            text: "Conference", start_date: "17/09/2012 15:00", end_date: "18/09/2012 15:00",
+            room_id: "3"
+        }
+    ], "json");
+
+</script>
+
+<div id="scheduler_here" class="dhx_cal_container " style="width:100%; height:100%;">
+    <div class="dhx_cal_navline" style="width: 1130px; height: 59px;">
+        <div class="dhx_cal_prev_button">&nbsp;</div>
+        <div class="dhx_cal_next_button">&nbsp;</div>
+        <div class="dhx_cal_today_button">Today</div>
+        <div class="dhx_cal_date">30 Jun 2009</div>
+        <div class="dhx_cal_tab dhx_cal_tab_first" name="day_tab" style="right: auto; left: 14px;">Day</div>
+        <div class="dhx_cal_tab" name="week_tab" style="right: auto; left: 75px;">Week</div>
+        <div class="dhx_cal_tab dhx_cal_tab_standalone active" name="timeline_tab" style="right: auto; left: 211px;">Timeline</div>
+        <div class="dhx_cal_tab dhx_cal_tab_last" name="month_tab" style="right: auto; left: 136px;">Month</div>
+    </div>
+    <div class="dhx_cal_header" style="width: 1130px; height: 20px; left: -1px; top: 60px;">
+        <div>
+            <div class="dhx_scale_bar " style="width: 40px; height: 18px; left: 170px; top: 0px;">08:00</div>
+            <div class="dhx_scale_bar " style="width: 40px; height: 18px; left: 210px; top: 0px;">08:30</div>
+            <div class="dhx_scale_bar " style="width: 40px; height: 18px; left: 250px; top: 0px;">09:00</div>
+            <div class="dhx_scale_bar " style="width: 40px; height: 18px; left: 290px; top: 0px;">09:30</div>
+            <div class="dhx_scale_bar " style="width: 40px; height: 18px; left: 330px; top: 0px;">10:00</div>
+            <div class="dhx_scale_bar " style="width: 40px; height: 18px; left: 370px; top: 0px;">10:30</div>
+            <div class="dhx_scale_bar " style="width: 40px; height: 18px; left: 410px; top: 0px;">11:00</div>
+            <div class="dhx_scale_bar " style="width: 40px; height: 18px; left: 450px; top: 0px;">11:30</div>
+            <div class="dhx_scale_bar " style="width: 40px; height: 18px; left: 490px; top: 0px;">12:00</div>
+            <div class="dhx_scale_bar " style="width: 40px; height: 18px; left: 530px; top: 0px;">12:30</div>
+            <div class="dhx_scale_bar " style="width: 40px; height: 18px; left: 570px; top: 0px;">13:00</div>
+            <div class="dhx_scale_bar " style="width: 40px; height: 18px; left: 610px; top: 0px;">13:30</div>
+            <div class="dhx_scale_bar " style="width: 40px; height: 18px; left: 650px; top: 0px;">14:00</div>
+            <div class="dhx_scale_bar " style="width: 40px; height: 18px; left: 690px; top: 0px;">14:30</div>
+            <div class="dhx_scale_bar " style="width: 40px; height: 18px; left: 710px; top: 0px;">15:00</div>
+            <div class="dhx_scale_bar " style="width: 40px; height: 18px; left: 750px; top: 0px;">15:30</div>
+            <div class="dhx_scale_bar " style="width: 40px; height: 18px; left: 790px; top: 0px;">16:00</div>
+            <div class="dhx_scale_bar " style="width: 40px; height: 18px; left: 830px; top: 0px;">16:30</div>
+            <div class="dhx_scale_bar " style="width: 40px; height: 18px; left: 870px; top: 0px;">17:00</div>
+            <div class="dhx_scale_bar " style="width: 40px; height: 18px; left: 910px; top: 0px;">17:30</div>
+            <div class="dhx_scale_bar " style="width: 40px; height: 18px; left: 950px; top: 0px;">18:00</div>
+            <div class="dhx_scale_bar " style="width: 40px; height: 18px; left: 990px; top: 0px;">18:30</div>
+            <div class="dhx_scale_bar " style="width: 40px; height: 18px; left: 1010px; top: 0px;">19:00</div>
+            <div class="dhx_scale_bar " style="width: 40px; height: 18px; left: 1050px; top: 0px;">19:30</div>
+        </div>
+    </div>
+
+    <div class="dhx_cal_data" style="width: 1130px; height: 317px; left: 0px; top: 81px; cursor: default;">
+        <table style="table-layout: fixed;">
+            <tbody>
+                <tr style="height: 80px">
+                    <td class="dhx_matrix_scell" style="width: 170px; height:80px;">
+                        Room 1
+                    </td>
+                    <td>
+                        <div event_id="1403272669707" class="dhx_cal_event_line " style="position:absolute; top:2px; height: 17px; left:189px; width:120px;">
+                            <div class="dhx_event_resize dhx_event_resize_start" style="height: 17px;"></div>
+                            <div class="dhx_event_resize dhx_event_resize_end" style="height: 17px;"> </div>
+                            Task A-89411
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+@*<section id="engineers">
+    <table class="table-condensed table-striped">
+        <tr>
+            <th>
+                Name
+            </th>
+        </tr>
+@{
+    foreach (var item in Model.engineers)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(item.Name, "Details", new {id = item.W6Key})
+            </td>
+        </tr>
+    }
+}
+    </table>
+</section>*@
+
+
+
+
+<data>
+            <event>
+                <id><![CDATA[0]]></id>
+                <start_date><![CDATA[2014-07-22 08:30]]></start_date>
+                <end_date><![CDATA[2014-07-22 12:15]]></end_date>
+                <text><![CDATA[Task A-12458]]></text>
+                <engineer_id><![CDATA[020602]]></engineer_id>
+                <color><![CDATA[undefined]]></color>
+            </event>
+            <event>
+                <id><![CDATA[1]]></id>
+                <start_date><![CDATA[2014-07-22 12:00]]></start_date>
+                <end_date><![CDATA[2014-07-22 14:00]]></end_date>
+                <text><![CDATA[Task A-89411]]></text>
+                <engineer_id> <![CDATA[020602]]></engineer_id>
+                <color><![CDATA[undefined]]></color>
+            </event>
+            <event>
+                <id><![CDATA[2]]></id>
+                <start_date><![CDATA[2014-07-22 11:00]]></start_date>
+                <end_date><![CDATA[2014-07-22 14:00]]></end_date>
+                <text><![CDATA[Task A-89411]]></text>
+                <engineer_id><![CDATA[010201]]></engineer_id>
+                <color><![CDATA[red]]></color>
+            </event>
+            <event>
+                <id><![CDATA[3]]></id>
+                <start_date><![CDATA[2014-07-22 08:50]]></start_date>
+                <end_date><![CDATA[2014-07-22 11:20]]></end_date>
+                <text><![CDATA[Task 101]]></text>
+                <engineer_id><![CDATA[031113]]></engineer_id>
+                <color><![CDATA[DarkGreen]]></color>
+            </event>
+        </data>
+
+
+        //scheduler.parse([
+        //    { start_date: "2014-07-18 08:30", end_date: "2014-07-18 12:15", text: "Task A-12458", engineer_id: engineers[0].key },
+        //    { start_date: "2014-07-18 12:00", end_date: "2014-07-18 14:00", text: "Task A-89411", engineer_id: engineers[0].key },
+        //    { start_date: "2014-07-18 11:00", end_date: "2014-07-18 14:00", text: "Task A-89411", engineer_id: engineers[1].key, color: "red" }
+        //], "json");
+
+
+
+
+
+
+
+
+    write.Settings.Indent = true;
+    write.Settings.IndentChars = "\t";
+    write.Settings.OmitXmlDeclaration = false;
+
+
+
+
+
+map.SetView(map.BoundingRectangle); 

@@ -1,0 +1,909 @@
+﻿@model WebApplication1.ViewModel.DispatcherViewModel
+@using System.Web.UI.WebControls
+@using WebApplication1.Controllers
+
+@{
+    ViewBag.Title = "Dispatcher";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section id="filters">
+    @using (Html.BeginForm("Filter", "Home", FormMethod.Post))
+    {
+        <div id="cityDiv">
+            <input name="city" id="city" type="text" maxlength="100" title="City" value="City" style="color: #888;"
+                onfocus="inputFocus(this)" onblur="inputBlur(this)" />
+            <label id="cityLabel">@ViewBag.city </label>
+        </div>
+
+        <div id="postalDiv">
+            <input name="postCode" id="postCode" type="text" maxlength="100" title="Postal Code" value="Postal Code" style="color: #888;"
+                onfocus="inputFocus(this)" onblur="inputBlur(this)" />
+            <label id="postalLabel">@ViewBag.postal </label>
+        </div>
+
+        <div id="categoryDiv">
+            <div id="taskCategory">
+                @Html.DropDownList("taskCategory", HomeController.GetTaskCategory(), "Task Category")
+            </div>
+            <label id="categoryLabel">@ViewBag.category </label>
+        </div>
+
+        <div id="skillDiv">
+            <div id="skillSet">
+                @Html.DropDownList("skillSet", HomeController.GetSkillSet(), "Skill Set")
+            </div>
+            <label id="skillLabel">@ViewBag.skill </label>
+        </div>
+
+        <div id="statusDiv">
+            <div id="status">
+                @Html.DropDownList("status", HomeController.GetTaskStatus(), "Task Status")
+            </div>
+            <label id="statusLabel">@ViewBag.status </label>
+        </div>
+
+        <input id="viewAll" type="radio" value="View all" name="viewAll" />
+        <p id="description">View all Engineers & Tasks</p>
+
+        <input id="submit" type="submit" value="Submit" class="btn btn-warning" />
+    }
+</section>
+
+<section id="work">
+    <table class="table-condensed table-striped" id="tasks">
+        <caption id="tableHead" class="workHeading">Tasks </caption>
+        <tr>
+            <th class="workHeading">Task ID
+            </th>
+            <th class="workHeading">Task Status
+            </th>
+            <th class="workHeading">City
+            </th>
+            <th class="workHeading">Customer
+            </th>
+            <th class="workHeading">Appointment Due Date
+            </th>
+            <th class="workHeading">Appointment Start - End
+            </th>
+            <th class="workHeading">Skill Req.
+            </th>
+            <th class="workHeading">Task Category
+            </th>
+            <th class="workHeading">Postal Code
+            </th>
+            <th class="workHeading">Drag Icon
+            </th>
+        </tr>
+
+        @foreach (var item in @Model.Tasks)
+        {
+            <tr>
+                <td draggable="true">
+                    @Html.ActionLink(item.Id.ToString(), "TaskDetails", new { id = item.Id })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status1.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer.ContactName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DueDate)
+                </td>
+                <td>
+                    @{
+                        var start = item.StartTime.ToString();
+                        var end = item.EndTime.ToString();
+                    }
+
+                    <p>
+                        @{
+                            object time = null;
+                            if (item.StartTime == null || item.EndTime == null)
+                            {
+                                time = "No Information Available";
+                            }
+
+                            else
+                            {
+                                time = start.Substring(11) + " - " + end.Substring(11);
+                            }
+                        }
+
+                        @time
+                    </p>
+                </td>
+                <td>
+                      @{
+                           var key = item.Id;
+
+                           //var skill = Model.skills.Where(m => m.W6Key == key).ToList();
+                           //string skillName = skill[0].W6SKILLS.Name;
+                      }
+                    <p>SKILLNAME</p>
+                </td>
+                <td>
+                     @{
+                          string category = "N/A";
+
+                          if (item.TaskCategory != null)
+                          {
+                              category = item.TaskCategory1.Name;
+                          }
+                     }
+
+                    <p>@category </p>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PostCode)
+                </td>
+                <td>
+                    <div class="drag" id="@item.Id,@item.Status1.Name,@item.Customer.ContactName,@category,@item.Customer.PhoneNumber">
+                        <span class="label label-warning">Drag </span>
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+</section>
+
+<section id="timePeriod">
+    <div id="timeDiv">
+        <p id="start">Start Date: </p>
+        <select id="sMonth">
+            <option value="jan">January</option>
+            <option value="feb">February</option>
+            <option value="mar">March</option>
+            <option value="apr">April</option>
+            <option value="may">May</option>
+            <option value="jun">June</option>
+            <option value="jul">July</option>
+            <option value="aug">August</option>
+            <option value="sep">September</option>
+            <option value="oct">October</option>
+            <option value="nov">November</option>
+            <option value="dec">December</option>
+        </select>
+        <input id="sDay" type="text" maxlength="3" value="Day" style="color: #888;"
+               onfocus="inputFocus(this)" onblur="inputBlur(this)" />
+        <input id="sYear" type="text" maxlength="5" value="Year" style="color: #888;"
+               onfocus="inputFocus(this)" onblur="inputBlur(this)"/>
+
+        <p id="end">End Date: </p>
+        <select id="eMonth">
+            <option value="jan">January</option>
+            <option value="feb">February</option>
+            <option value="mar">March</option>
+            <option value="apr">April</option>
+            <option value="may">May</option>
+            <option value="jun">June</option>
+            <option value="jul">July</option>
+            <option value="aug">August</option>
+            <option value="sep">September</option>
+            <option value="oct">October</option>
+            <option value="nov">November</option>
+            <option value="dec">December</option>
+        </select>
+        <input id="eDay" type="text" maxlength="3" value="Day" style="color: #888;"
+               onfocus="inputFocus(this)" onblur="inputBlur(this)" />
+        <input id="eYear" type="text" maxlength="5" value="Year" style="color: #888;"
+               onfocus="inputFocus(this)" onblur="inputBlur(this)" />
+        
+        <span id="periodSubmit" onclick="validateTimePeriod()" class="label label-warning"> Submit </span>
+    </div>
+</section>
+
+<div id="scheduler_here" class="dhx_cal_container">
+    <div class="dhx_cal_navline">
+        <div class="dhx_cal_prev_button">&nbsp;</div>
+        <div class="dhx_cal_next_button">&nbsp;</div>
+        <div class="dhx_cal_today_button"></div>
+        <input type="button" id="save" value="save" onclick="save()">
+        <div class="dhx_cal_date"></div>
+        <div class="dhx_cal_tab" name="day_tab" style="right: 204px;"></div>
+        <div class="dhx_cal_tab" name="week_tab" style="right: 140px;"></div>
+        <div class="dhx_cal_tab" name="timeline_tab" style="right: 280px;"></div>
+        <div class="dhx_cal_tab" name="month_tab" style="right: 76px;"></div>
+    </div>
+    <div class="dhx_cal_header">
+    </div>
+    <div class="dhx_cal_data">
+    </div>
+
+    <textarea id="data" name="data">
+        @ViewBag.xml
+    </textarea>
+
+    <textarea id="today" name="today">
+        @ViewBag.xmlToday
+    </textarea>
+
+    <script type="text/javascript">
+
+        var engineers = @Html.Raw(Json.Encode(ViewBag.engineers));
+        var eng_ids = @Html.Raw(Json.Encode(ViewBag.engineerId));
+        var statuses = @Html.Raw(Json.Encode(ViewBag.statusList));
+        var category = @Html.Raw(Json.Encode(HomeController.GetTaskCategory()));
+
+        scheduler.locale.labels.timeline_tab = "Timeline";
+        scheduler.locale.labels.timeline2_tab = "Timeline2";
+        scheduler.locale.labels.section_custom = "Section";
+        scheduler.config.details_on_create = true;
+        scheduler.config.details_on_dblclick = true;
+        scheduler.config.xml_date = "%Y-%m-%d %H:%i";
+        scheduler.config.limit_view = false;
+        scheduler.config.mark_now = false;
+
+        // we want to save "dhx_cal_data" div in a variable to limit look ups
+        var scheduler_container = document.getElementById("scheduler_here");
+        var scheduler_container_divs = scheduler_container.getElementsByTagName("div");
+        var dhx_cal_data = scheduler_container_divs[scheduler_container_divs.length-1];
+
+        // while target has parent node and we haven't reached dhx_cal_data
+        // we can keep checking if it is timeline section
+        scheduler.dhtmlXTooltip.isTooltipTarget = function(target) {
+            while (target.parentNode && target != dhx_cal_data) {
+                var css = target.className.split(" ")[0];
+                // if we are over matrix cell or tooltip itself
+                if (css == "dhx_matrix_scell" || css == "dhtmlXTooltip") {
+                    return { classname: css };
+                }
+                target = target.parentNode;
+            }
+            return false;
+        };
+
+        scheduler.attachEvent("onMouseMove", function(id, e) {
+            var timeline_view = scheduler.matrix[scheduler.getState().mode];
+
+            // if we are over event then we can immediately return
+            // or if we are not on timeline view
+            if (id || !timeline_view) {
+                return;
+            }
+
+            // native mouse event
+            e = e||window.event;
+            var target = e.target||e.srcElement;
+
+            var tooltip = scheduler.dhtmlXTooltip;
+            var tooltipTarget = tooltip.isTooltipTarget(target);
+            if (tooltipTarget) {
+                if (tooltipTarget.classname == "dhtmlXTooltip") {
+                    var  actionData = scheduler.getActionData(e);
+                    var section_id = actionData.section;
+                    dhtmlxTooltip.delay(tooltip.show, tooltip, [e, tooltip.tooltip.innerHTML]);
+                }
+            }
+        });
+
+        scheduler.templates.tooltip_text = function(start,end,ev){
+            return "<b>Event:</b> "+ev.text+"<br /><b>Start date:</b> " +
+            scheduler.templates.tooltip_date_format(start)+
+            "<br /><b>End date:</b> "+scheduler.templates.tooltip_date_format(end)
+            + "<br /><b>Customer:</b> " + ev.customer
+            + "<br /><b>Phone Number:</b> " + ev.number
+            + "<br /><b>Status:</b> " + ev.status;
+        };
+
+        var colors = [
+            { key: 'Red', label: 'Red' },
+            { key: '#00CC33', label: 'Green' },
+            { key: '#FFCC00', label: 'Orange' },
+            { key: '#00CCCC', label: 'Blue'},
+            { key: '#D0D0D0', label: 'Grey'}
+        ];
+
+        //Items to be displayed in the LightBox
+        scheduler.config.lightbox.sections = [
+            { name: "Description", height: 43, map_to: "text", type: "textarea", focus: true },
+            { name: "Color", height: 20, type: "select", options: colors, map_to: "color" },
+            { name: "Status", height: 20, type: "select", options: statuses, map_to: "status"},
+            { name: "Customer", height: 40, type: "textarea", map_to: "customer"},
+            { name: "PhoneNumber", height: 40, type: "textarea", map_to: "number"},
+            { name: "Category", height: 40, type: "textarea", map_to: "category"},
+            { name: "time", height: 72, type: "time", map_to: "auto" }
+        ];
+
+        scheduler.createTimelineView({
+            name: "timeline",
+            x_unit: "minute",
+            x_step: 30,
+            x_start: 16,
+            x_date: "%H:%i",
+            x_size: 24,
+            x_length: 48,
+            y_unit: engineers,
+            event_dy: 'full',
+            y_property: "engineer_id",
+            render: "bar"
+        });
+
+        //Data to save when writing to XML
+        scheduler.data_attributes = function () {
+            return [
+                ["id"], ["start_date", scheduler.templates.xml_format], ["end_date", scheduler.templates.xml_format], ["text"],
+                ["engineer_id"], ["color"], ["status"], ["customer"], ["number"], ["category"]
+            ];
+        };
+
+        //Event Handlers
+        scheduler.attachEvent("onAfterLightbox", function(id, ev){
+
+            setToolTip();
+            save();
+
+            //var events = scheduler.getEvents();
+            //for(var i = 0; i < events.length; i++)
+            //{
+            //    var id = events[i].id;
+            //    scheduler.changeEventId(id, i);
+            //}
+        });
+
+        scheduler.attachEvent("onYScaleClick", function (index, section, e) {
+            setToolTip();
+        });
+
+        scheduler.attachEvent("onLimitViolation", function (id, obj) {
+            alert("This is not a valid time period.");
+        });
+
+        scheduler.attachEvent("onClick", function (id, e){
+            var key = $(e.target).attr('event_id');
+
+            if(key != undefined)
+            {
+                setPosition(key);
+            }
+        });
+
+        scheduler.attachEvent("onTemplatesReady", function(){
+
+            scheduler.templates.event_bar_text = function(start,end,event){
+                return ("<b>" + event.text + "</b><br><i>" + event.customer + "</i>" + "<i>" + " " + event.status + "</i>");
+            }
+        });
+
+        scheduler.attachEvent("onEventAdded", function(id,ev){
+
+            updatePin(ev.text, ev.status);
+            scheduler.changeEventId(id, ev.text);
+        });
+
+        scheduler.attachEvent("onEventChanged", function(id,ev){
+            var key = ev.text;
+            var status = ev.status;
+
+            ev.color = setEventColor(status);
+
+            scheduler.setCurrentView();
+            updatePin(ev.text, ev.status);
+        });
+
+        scheduler.attachEvent("onEventDeleted", function(id, ev){
+            
+            var url = "/Home/deleteEvent"
+            
+            $.ajax({
+                url: url,
+                type: "POST",
+                dataType: 'json',
+                async: false,
+                data: "{'taskId':'" + id +  "' }",
+                contentType: 'application/json; charset=utf-8',
+            });
+
+            updatePin(ev.text, "Open");
+            scheduler.endLightbox(false);
+        });
+
+        scheduler.attachEvent("onEventSave",function(id,ev,is_new){
+            
+            var url = "/Home/sendEmail"
+            var start = ev.start_date;
+            var end = ev.end_date;
+            
+            var event = scheduler.getEvent(id);
+            
+            //$.ajax({
+            //    url: url,
+            //    type: "POST",
+            //    dataType: 'json',
+            //    async: false,
+            //    data: "{'engID':'" + event.engineer_id + "', 'taskID':'" + id + "', 'start':'" + start + "', 'end':'" + end + "' }",
+            //    contentType: 'application/json; charset=utf-8',
+            //    success: alert("Email sent to: " + event.engineer_id)
+            //});
+            
+            //Return true to allow the change.
+            return true;
+        })
+
+        @try
+        {
+            foreach (var item in Model.EngineerSchedule)
+            {
+                var key = item.Key;
+                var eng_id = item.Value;
+
+                var weekValue = Model.WeeklySchedule.Where(k => k.Key == key).Select(v => v.Value).Cast<List<string>>();
+                var optionalValue = Model.OptionalSchedule.Where(k => k.Key == key).Select(v => v.Value).Cast<List<string>>();
+
+                @: gatherTimes('@Html.Raw(Json.Encode(key))', '@Html.Raw(Json.Encode(weekValue))', '@Html.Raw(Json.Encode(optionalValue))', '@Html.Raw(Json.Encode(eng_id))');
+            }
+        }
+
+        catch (Exception e) { }
+
+        function gatherTimes(weekKey, weekValues, optionalValues, engs)
+        {
+            weekValues = weekValues.slice(2, weekValues.length - 2);
+
+            var week = weekValues;
+            week = week.split(",");
+
+            optionalValues = optionalValues.slice(2, optionalValues.length - 2);
+
+            var optional = optionalValues;
+            optional = optional.split(",");
+
+            var eng_ids = engs.replace('[', '');
+            eng_ids = eng_ids.replace(']', '');
+            eng_ids = eng_ids.split(',');
+
+            timeRestrictions(week, optional, eng_ids, weekKey);
+        }
+
+        function timeRestrictions(week, optional, ids, key)
+        {
+
+            //array to hold the float values for the week times.
+            var floatArray = [];
+            //aaray to hold the float values for the optional times
+            var floatArray2 = [];
+
+            for(var i = 0; i < week.length; i++)
+            {
+                var num = week[i].replace('"', '');
+                num = num.replace('"', '');
+
+                floatArray[floatArray.length] = Number(num);
+            }
+
+            for (var i = 0; i < optional.length; i++)
+            {
+                var num = optional[i].replace('"', '');
+                num = num.replace('"', '');
+
+                floatArray2[floatArray2.length] = Number(num);
+            }
+
+            var count1 = 1;
+            var count2 = 1;
+
+            for(var i = 0; i < floatArray.length; i = i+2)
+            {
+                if(isNaN(floatArray[i]) || isNaN(floatArray[i+1]))
+                {
+                    count1++;
+                    continue;
+                }
+
+                scheduler.addMarkedTimespan({
+                    days: [count1],
+                    zones: [floatArray[i] * 60, floatArray[i+1] * 60],invert_zones: true,
+                    type:  "dhx_time_block",
+                    css: "red_section",
+                    html: "<div style='text-align: center; height: 44px;'> <b style='color=black; '> Blocked Hours </b> </div>",
+                    engineers: { timeline: ids}
+                });
+                count1++;
+            }
+
+            //    for(var i = 0; i < floatArray2.length; i = i+2)
+            //    {
+            //        if(isNaN(floatArray2[i]) || isNaN(floatArray2[i+1]))
+            //        {
+            //            count2++;
+            //            continue;
+            //        }
+
+            //        scheduler.addMarkedTimespan({
+            //            days: [count2],
+            //            zones: [floatArray2[i] * 60, floatArray2[i+1] * 60],
+            //            html: "<div style='background: green; text-align: center; height: 48px;'> <b style='color=black; '> Optional Hours </b> </div>",
+            //            //engineers: { timeline: '20602'}
+            //        });
+            //        count2++;
+            //    }
+        }
+
+        //scheduler.attachEvent("onBeforeTooltip", function (id){
+        //    var event = scheduler.getEvent(id);
+        //    var key = event.text;
+        //    setPosition(key);
+        //    return true;
+        //});
+
+        scheduler.init("scheduler_here", new Date(), "timeline");
+
+        function save() {
+            var url = "/Home/Save"
+            var json = scheduler.toJSON();
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                dataType: 'json',
+                async: false,
+                data: "{'jsonString':'" + json + "' }",
+                contentType: 'application/json; charset=utf-8',
+                //success: alert("File Saved in C:\\ Drive as Tasks.xml")
+            });
+        }
+
+        var json =  @Html.Raw(Json.Encode(ViewBag.json));
+
+        //scheduler.parse(document.getElementById("data").value, "xml");
+        scheduler.parse(json, "json");
+    </script>
+</div>
+
+<div id='mapDiv'></div>
+
+<script type="text/javascript">
+
+    function validateTimePeriod()
+    {
+        var sDay = $("#sDay").val();
+        var eDay = $("#eDay").val();
+        var sYear = $("#sYear").val();
+        var eYear = $("#eYear").val();
+        var sMonth = $("#sMonth option:selected").val();
+        var eMonth = $("#eMonth option:selected").val();
+
+        var timeArray = [sMonth, sDay, sYear, eMonth, eDay, eYear];
+
+        if(!(isNaN(sDay) && isNaN(eDay) && isNaN(sYear) && isNaN(eYear)))
+        {
+            
+            if(isValidDay(sDay) && isValidDay(eDay))
+            {
+                getTimePeriod(timeArray);
+            }
+
+            else
+                alert("Invalid inputs for start and end days.");
+        }
+
+        else
+            alert("Invalid Inputs for time period.");
+    }
+
+    function isValidDay(item)
+    {
+        if((item > 0) && (item < 32))
+            return true;
+        else 
+            return false;
+    }
+
+    function getTimePeriod(times)
+    {
+        var url = "/Home/timePeriod"
+            
+        $.ajax({
+            url: url,
+            type: "POST",
+            dataType: 'json',
+            async: false,
+            data: "{'time':'" + times +  "' }",
+            contentType: 'application/json; charset=utf-8',
+        });
+    }
+
+    function inputFocus(text) {
+        if (text.value == text.defaultValue) {
+            text.value = "";
+            text.style.color = "#000";
+        }
+    };
+
+    function inputBlur(text) {
+        if (text.value == "") {
+            text.value = text.defaultValue;
+            text.style.color = "#888";
+        }
+    };
+
+    //JQuery drag and drop funtion
+    $(function() {
+
+        // allow the icon to be dragged
+        $(".drag").draggable( {
+            revert: true,
+            cursor: "move",
+            helper: 'clone',
+            appendTo: "#scheduler_here",
+        });
+
+        // What happens when dropping an element into scheduler
+        $("#scheduler_here").droppable({
+            enable: true,
+            accept: ".drag",
+            drop: function(event, ui) {
+                event.preventDefault();
+                event.stopPropagation();
+
+                var taskInfo = ui.draggable.attr("id").split(/[,]+/);
+                var sColor = setEventColor(taskInfo[1]);
+
+                var info = scheduler.getActionData(event);
+
+                scheduler.addEventNow({
+                    start_date: info.date,
+                    end_date: info.date,
+                    engineer_id: info.section,
+                    text: taskInfo[0],
+                    id: taskInfo[0],
+                    status: taskInfo[1],
+                    customer: taskInfo[2],
+                    number: taskInfo[4],
+                    category: taskInfo[3],
+                    color: sColor
+                });
+
+                //var url = "/Home/sendEmail"
+
+                
+                //$.ajax({
+                //    url: url,
+                //    type: "POST",
+                //    dataType: 'json',
+                //    async: false,
+                //    data: "{'engID':'" + info.section + "', 'taskID':'" + taskInfo[0] + "' }",
+                //    contentType: 'application/json; charset=utf-8',
+                //    //success: alert("Email sent to: ")
+                //});
+            }
+        });
+    });
+
+    //Tool tip info for the engineers on the scheduler
+    var engineers = @Html.Raw(Json.Encode(ViewBag.engineersInfo));
+
+    //Map positions for the tasks
+    var positions = @Html.Raw(Json.Encode(ViewBag.positions));
+
+    function setToolTip() {
+        var engName = document.getElementsByClassName("dhx_matrix_scell");
+        for (var i = 0; i < engName.length; i++) {
+            engName[i].className = "dhx_matrix_scell" +  " tooltipstered";   // " tooltipss" +
+            engName[i].title = engineers[i].toString();
+        }
+
+        //Initiate tooltipster
+        $(".tooltipss").tooltipster();
+    };
+    setToolTip();
+
+    var colors = ["/content/images/map_pin_blue.png",
+                  "/content/images/map_pin_red.png",
+                  "/content/images/map_pin_green.png",
+                  "/content/images/map_pin_orange.png",
+                  "/content/images/map_pin_grey.png"];
+
+    var pinInfoBox = new Microsoft.Maps.Infobox(new Microsoft.Maps.Location(0, 0), { visible: false });  //the pop up info box
+    var infoboxLayer = new Microsoft.Maps.EntityCollection();
+    var pinLayer = new Microsoft.Maps.EntityCollection();
+    var map;
+
+    var taskStatus = [];
+    var keys = [];
+
+    //Bing Maps
+    function GetMap()
+    {
+        var mapOptions = {
+            credentials: "ArermFdJGjLNlch7Y8hfUTeF_6LFWkyF92X-KMGPnUV8rbeV1B_WhZhv-Wmytz8h",
+            mapTypeId: Microsoft.Maps.MapTypeId.road,
+            zoom: 7,
+            center: new Microsoft.Maps.Location(positions[0].lat/1000000, positions[0].lon/1000000)
+        }
+
+        map = new Microsoft.Maps.Map(document.getElementById("mapDiv"), mapOptions);
+        Microsoft.Maps.Events.addHandler(map, 'viewchange', hideInfobox);
+
+        pinInfobox = new Microsoft.Maps.Infobox(new Microsoft.Maps.Location(0, 0), { visible: false });
+        infoboxLayer.push(pinInfobox);
+
+        createPins(map);
+
+        //$('.pushpin div').css({color: 'blue'});
+    }
+
+    GetMap();
+
+    //Creates pushpins for map
+    function createPins(map)
+    {
+        var textarea = document.getElementById("today");
+
+        var xmlDoc = $.parseXML(textarea.value);
+        $xml = $(xmlDoc);
+
+        $event = $xml.find("event");
+        $.each($event, function(){
+            taskStatus[taskStatus.length] = $(this).find("status").text();
+            keys[keys.length] = $(this).find("text").text();
+        });
+
+        for(var i = 0; i < positions.length; i++)
+        {
+            var result = positions[i].status; // status from database
+            var key = '' + positions[i].key;
+
+            if(keys.indexOf(key) != -1)
+            {
+                var index = keys.indexOf(key);
+                result = taskStatus[index];
+            }
+
+            var colorgiven = pinColor(result);
+
+            var loc = new Microsoft.Maps.Location(positions[i].lat/1000000, positions[i].lon/1000000);
+            var pin = new Microsoft.Maps.Pushpin(loc, {icon: colorGiven, width: 36, height: 36});
+            pin.Title = key;
+            pin.Description = positions[i].text;
+            Microsoft.Maps.Events.addHandler(pin, 'click', displayInfobox);
+            //Microsoft.Maps.Events.addHandler(pin, 'click', displayEvent);
+            pinLayer.push(pin);
+        }
+
+        map.entities.push(pinLayer);
+        map.entities.push(infoboxLayer);
+    }
+
+    //returns the associated pin color for the status of the task
+    function pinColor(status)
+    {
+        if(status == "Open" || status == "Acknowledged" || status == "Tentative")
+        {
+            colorGiven = colors[4];
+        }
+
+        else if(status == "Completed")
+        {
+            colorGiven = colors[2];
+        }
+
+        else if(status == "Scheduled" || status == "Travel" || status == "On-Site" || status == "Dispatched")
+        {
+            colorGiven = colors[0];
+        }
+
+        else if(status == "Rejected" || status == "Cancelled" )
+        {
+            colorGiven = colors[1]
+        }
+
+        else
+        {
+            colorGiven = colors[3]
+        }
+
+        return colorGiven;
+    }
+
+    function updatePin(key, status)
+    {
+        var length = pinLayer.getLength();
+
+        for(var i = 0; i < length; i++)
+        {
+            var pin = pinLayer.get(i);
+
+            if(pin.Title == key)
+            {
+                var color = pinColor(status);
+                pin.setOptions({icon: color, width: 36, height: 36});
+            }
+        }
+    }
+
+    function deletePin(key)
+    {
+        for(var i = 0; i < pinLayer.getLength(); i++)
+        {
+            var pin = pinLayer.get(i);
+            if(pin.Title == key)
+            {
+
+            }
+        }
+    }
+
+    //centers the map to the pin after mouseover of an event on the Gantt
+    function setPosition(key)
+    {
+        var length = pinLayer.getLength();
+
+        for(var i = 0; i < length; i++)
+        {
+            var pin = pinLayer.get(i);
+
+            if(pin.Title == key)
+            {
+                var location = pin.getLocation();
+                map.setView({ zoom: 11, center: location });
+                pinInfoBox.setOptions({title: pin.Title, description: pin.Description, visible:true, offset: new Microsoft.Maps.Point(0,25)});
+                pinInfobox.setLocation(pin.getLocation());
+                break;
+            }
+        }
+    }
+
+    function displayInfobox(e) {
+        pinInfobox.setOptions({title: e.target.Title, description: e.target.Description, visible:true, offset: new Microsoft.Maps.Point(0,25)});
+        pinInfobox.setLocation(e.target.getLocation());
+    }
+
+    function hideInfobox(e)
+    {
+        pinInfobox.setOptions({ visible: false });
+    }
+
+    function setEventColor(status)
+    {
+        var color = "";
+
+        if(status == "Open" || status == "Acknowledged" || status == "Tentative")
+        {
+            color = "#D0D0D0";
+            //scheduler.setEvent(ev.id, {color: "#D0D0D0"});
+        }
+
+        else if(status == "Completed")
+        {
+            color = "#00CC33";
+            //scheduler.setEvent(ev.id, {color: "#00CC33"});
+        }
+
+        else if(status == "Scheduled" || status == "Travel" || status == "On-Site" || status == "Dispatched")
+        {
+            color = "#00CCCC";
+            //scheduler.setEvent(ev.id, {color: "#00CCCC"});
+        }
+
+        else
+        {
+            color = "Red";
+            //scheduler.setEvent(ev.id, {color: "Red"});
+        }
+
+        return color;
+    }
+
+    //function displayEvent(e)
+    //{
+    //    var key = e.target.Title;
+
+    //    var events = scheduler.getEvents();
+    //    for(var i = 0; i < events.length; i ++)
+    //    {
+    //        var event = events[i];
+
+    //        if(event.text == key)
+    //        {
+    //            window.setTimeout(function(){
+    //                scheduler.showQuickInfo(event.id);
+    //            },1);
+    //        }
+    //    }
+    //}
+</script>

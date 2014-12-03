@@ -1,0 +1,14 @@
+Group 1 (green):
+completed
+
+Group 2(blue):
+travel, scheduled, dispatched, on-site
+
+Group 3 (grey): 
+ackownledged, open, tentative
+
+Group 4 (red):
+cancelled, rejected
+
+Group 5 (orange):
+in Jeopardy, incomplete

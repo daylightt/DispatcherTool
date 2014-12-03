@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5d9e4cfe061b491a9c239fd42131cfdc" Name="Diagram1" ZoomLevel="93">
+        <EntityTypeShape EntityType="DispatcherDBModel.Customer" Width="1.5" PointX="5.25" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DispatcherDBModel.DailyHour" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DispatcherDBModel.Engineer" Width="1.5" PointX="5.25" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DispatcherDBModel.EngineerSkill" Width="1.5" PointX="10" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DispatcherDBModel.Skill" Width="1.5" PointX="7.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DispatcherDBModel.Status" Width="1.5" PointX="5.25" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DispatcherDBModel.Task" Width="1.5" PointX="7.5" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DispatcherDBModel.TaskCategory" Width="1.5" PointX="5.25" PointY="16.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DispatcherDBModel.WeeklyHour" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
+        <AssociationConnector Association="DispatcherDBModel.FK_Task_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="DispatcherDBModel.FK_WeeklyHours_Friday" ManuallyRouted="false" />
+        <AssociationConnector Association="DispatcherDBModel.FK_WeeklyHours_Monday" ManuallyRouted="false" />
+        <AssociationConnector Association="DispatcherDBModel.FK_WeeklyHours_Saturday" ManuallyRouted="false" />
+        <AssociationConnector Association="DispatcherDBModel.FK_WeeklyHours_Sunday" ManuallyRouted="false" />
+        <AssociationConnector Association="DispatcherDBModel.FK_WeeklyHours_Thursday" ManuallyRouted="false" />
+        <AssociationConnector Association="DispatcherDBModel.FK_WeeklyHours_Tuesday" ManuallyRouted="false" />
+        <AssociationConnector Association="DispatcherDBModel.FK_WeeklyHours_Wednesday" ManuallyRouted="false" />
+        <AssociationConnector Association="DispatcherDBModel.FK_Engineer_WeeklyHours" ManuallyRouted="false" />
+        <AssociationConnector Association="DispatcherDBModel.FK_Task_Engineer" ManuallyRouted="false" />
+        <AssociationConnector Association="DispatcherDBModel.FK_EngineerSkill_SkillKey" ManuallyRouted="false" />
+        <AssociationConnector Association="DispatcherDBModel.FK_Task_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="DispatcherDBModel.FK_Task_Task" ManuallyRouted="false" />
+        <AssociationConnector Association="DispatcherDBModel.FK_Task_TaskCategory" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

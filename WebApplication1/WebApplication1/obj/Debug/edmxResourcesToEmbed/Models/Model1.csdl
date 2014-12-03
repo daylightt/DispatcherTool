@@ -1,0 +1,386 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DispatcherDBModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="DispatcherDBEntities1" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="Customers" EntityType="DispatcherDBModel.Customer" />
+    <EntitySet Name="DailyHours" EntityType="DispatcherDBModel.DailyHour" />
+    <EntitySet Name="Engineers" EntityType="DispatcherDBModel.Engineer" />
+    <EntitySet Name="EngineerSkills" EntityType="DispatcherDBModel.EngineerSkill" />
+    <EntitySet Name="Skills" EntityType="DispatcherDBModel.Skill" />
+    <EntitySet Name="Status" EntityType="DispatcherDBModel.Status" />
+    <EntitySet Name="Tasks" EntityType="DispatcherDBModel.Task" />
+    <EntitySet Name="TaskCategories" EntityType="DispatcherDBModel.TaskCategory" />
+    <EntitySet Name="WeeklyHours" EntityType="DispatcherDBModel.WeeklyHour" />
+    <AssociationSet Name="FK_Task_Customer" Association="DispatcherDBModel.FK_Task_Customer">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Task" EntitySet="Tasks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WeeklyHours_Friday" Association="DispatcherDBModel.FK_WeeklyHours_Friday">
+      <End Role="DailyHours" EntitySet="DailyHours" />
+      <End Role="WeeklyHours" EntitySet="WeeklyHours" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WeeklyHours_Monday" Association="DispatcherDBModel.FK_WeeklyHours_Monday">
+      <End Role="DailyHours" EntitySet="DailyHours" />
+      <End Role="WeeklyHours" EntitySet="WeeklyHours" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WeeklyHours_Saturday" Association="DispatcherDBModel.FK_WeeklyHours_Saturday">
+      <End Role="DailyHours" EntitySet="DailyHours" />
+      <End Role="WeeklyHours" EntitySet="WeeklyHours" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WeeklyHours_Sunday" Association="DispatcherDBModel.FK_WeeklyHours_Sunday">
+      <End Role="DailyHours" EntitySet="DailyHours" />
+      <End Role="WeeklyHours" EntitySet="WeeklyHours" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WeeklyHours_Thursday" Association="DispatcherDBModel.FK_WeeklyHours_Thursday">
+      <End Role="DailyHours" EntitySet="DailyHours" />
+      <End Role="WeeklyHours" EntitySet="WeeklyHours" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WeeklyHours_Tuesday" Association="DispatcherDBModel.FK_WeeklyHours_Tuesday">
+      <End Role="DailyHours" EntitySet="DailyHours" />
+      <End Role="WeeklyHours" EntitySet="WeeklyHours" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WeeklyHours_Wednesday" Association="DispatcherDBModel.FK_WeeklyHours_Wednesday">
+      <End Role="DailyHours" EntitySet="DailyHours" />
+      <End Role="WeeklyHours" EntitySet="WeeklyHours" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Engineer_WeeklyHours" Association="DispatcherDBModel.FK_Engineer_WeeklyHours">
+      <End Role="WeeklyHours" EntitySet="WeeklyHours" />
+      <End Role="Engineer" EntitySet="Engineers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Task_Engineer" Association="DispatcherDBModel.FK_Task_Engineer">
+      <End Role="Engineer" EntitySet="Engineers" />
+      <End Role="Task" EntitySet="Tasks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EngineerSkill_SkillKey" Association="DispatcherDBModel.FK_EngineerSkill_SkillKey">
+      <End Role="Skill" EntitySet="Skills" />
+      <End Role="EngineerSkill" EntitySet="EngineerSkills" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Task_Status" Association="DispatcherDBModel.FK_Task_Status">
+      <End Role="Status" EntitySet="Status" />
+      <End Role="Task" EntitySet="Tasks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Task_Task" Association="DispatcherDBModel.FK_Task_Task">
+      <End Role="Task" EntitySet="Tasks" />
+      <End Role="Task1" EntitySet="Tasks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Task_TaskCategory" Association="DispatcherDBModel.FK_Task_TaskCategory">
+      <End Role="TaskCategory" EntitySet="TaskCategories" />
+      <End Role="Task" EntitySet="Tasks" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Company" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="ContactName" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Email" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="MobileNumber" Type="String" MaxLength="15" Unicode="true" FixedLength="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="15" Unicode="true" FixedLength="true" />
+    <Property Name="Country" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="City" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Address" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="PostCode" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+    <Property Name="SecondaryEmail" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="SecondayMobileNumber" Type="String" MaxLength="15" Unicode="true" FixedLength="true" />
+    <Property Name="SecondaryPhoneNumber" Type="String" MaxLength="15" Unicode="true" FixedLength="true" />
+    <Property Name="SecondaryCountry" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="SecondaryCity" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="SecondaryAddress" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="SecondaryPostCode" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+    <Property Name="ProductHolding" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Tasks" Relationship="DispatcherDBModel.FK_Task_Customer" FromRole="Customer" ToRole="Task" />
+  </EntityType>
+  <EntityType Name="DailyHour">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="TotalHours" Type="Double" />
+    <Property Name="hasOptional" Type="Boolean" />
+    <Property Name="TotalOptionalHours" Type="Int16" />
+    <Property Name="RegularStart" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="RegularFinish" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="OptionalStart" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="OptionalEnd" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="AllottedLunchTime" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="WeeklyHours" Relationship="DispatcherDBModel.FK_WeeklyHours_Friday" FromRole="DailyHours" ToRole="WeeklyHours" />
+    <NavigationProperty Name="WeeklyHours1" Relationship="DispatcherDBModel.FK_WeeklyHours_Monday" FromRole="DailyHours" ToRole="WeeklyHours" />
+    <NavigationProperty Name="WeeklyHours2" Relationship="DispatcherDBModel.FK_WeeklyHours_Saturday" FromRole="DailyHours" ToRole="WeeklyHours" />
+    <NavigationProperty Name="WeeklyHours3" Relationship="DispatcherDBModel.FK_WeeklyHours_Sunday" FromRole="DailyHours" ToRole="WeeklyHours" />
+    <NavigationProperty Name="WeeklyHours4" Relationship="DispatcherDBModel.FK_WeeklyHours_Thursday" FromRole="DailyHours" ToRole="WeeklyHours" />
+    <NavigationProperty Name="WeeklyHours5" Relationship="DispatcherDBModel.FK_WeeklyHours_Tuesday" FromRole="DailyHours" ToRole="WeeklyHours" />
+    <NavigationProperty Name="WeeklyHours6" Relationship="DispatcherDBModel.FK_WeeklyHours_Wednesday" FromRole="DailyHours" ToRole="WeeklyHours" />
+  </EntityType>
+  <EntityType Name="Engineer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Engineer_ID" Type="Int32" />
+    <Property Name="Name" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="MobilePhone" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Email" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="City" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="PostCode" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+    <Property Name="Skill" Type="Int32" />
+    <Property Name="WorkingHours" Type="Int32" />
+    <Property Name="AllottedVacationDays" Type="Int16" />
+    <Property Name="VacationStart" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="VacationEnd" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="AllottedSickDays" Type="Int16" />
+    <NavigationProperty Name="WeeklyHour" Relationship="DispatcherDBModel.FK_Engineer_WeeklyHours" FromRole="Engineer" ToRole="WeeklyHours" />
+    <NavigationProperty Name="Tasks" Relationship="DispatcherDBModel.FK_Task_Engineer" FromRole="Engineer" ToRole="Task" />
+  </EntityType>
+  <EntityType Name="EngineerSkill">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="W6Key" Type="Int32" />
+    <Property Name="SkillKey" Type="Int32" />
+    <Property Name="level" Type="Int32" />
+    <NavigationProperty Name="Skill" Relationship="DispatcherDBModel.FK_EngineerSkill_SkillKey" FromRole="EngineerSkill" ToRole="Skill" />
+  </EntityType>
+  <EntityType Name="Skill">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="EngineerSkills" Relationship="DispatcherDBModel.FK_EngineerSkill_SkillKey" FromRole="Skill" ToRole="EngineerSkill" />
+  </EntityType>
+  <EntityType Name="Status">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Tasks" Relationship="DispatcherDBModel.FK_Task_Status" FromRole="Status" ToRole="Task" />
+  </EntityType>
+  <EntityType Name="Task">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="Int32" />
+    <Property Name="DueDate" Type="DateTime" Precision="0" />
+    <Property Name="StartTime" Type="DateTime" Precision="3" />
+    <Property Name="EndTime" Type="DateTime" Precision="3" />
+    <Property Name="CustomerAccount" Type="Int32" />
+    <Property Name="TaskCategory" Type="Int32" />
+    <Property Name="Country" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="City" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Address" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="PostCode" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+    <Property Name="Latitude" Type="Double" />
+    <Property Name="Longitude" Type="Double" />
+    <Property Name="AssignedTo" Type="Int32" />
+    <Property Name="isOpen" Type="Boolean" />
+    <Property Name="SkillsRequired" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Customer" Relationship="DispatcherDBModel.FK_Task_Customer" FromRole="Task" ToRole="Customer" />
+    <NavigationProperty Name="Engineer" Relationship="DispatcherDBModel.FK_Task_Engineer" FromRole="Task" ToRole="Engineer" />
+    <NavigationProperty Name="Status1" Relationship="DispatcherDBModel.FK_Task_Status" FromRole="Task" ToRole="Status" />
+    <NavigationProperty Name="Task1" Relationship="DispatcherDBModel.FK_Task_Task" FromRole="Task" ToRole="Task1" />
+    <NavigationProperty Name="Task2" Relationship="DispatcherDBModel.FK_Task_Task" FromRole="Task1" ToRole="Task" />
+    <NavigationProperty Name="TaskCategory1" Relationship="DispatcherDBModel.FK_Task_TaskCategory" FromRole="Task" ToRole="TaskCategory" />
+  </EntityType>
+  <EntityType Name="TaskCategory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Tasks" Relationship="DispatcherDBModel.FK_Task_TaskCategory" FromRole="TaskCategory" ToRole="Task" />
+  </EntityType>
+  <EntityType Name="WeeklyHour">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="WeeklyHours" Type="Double" />
+    <Property Name="Monday" Type="Int32" />
+    <Property Name="Tuesday" Type="Int32" />
+    <Property Name="Wednesday" Type="Int32" />
+    <Property Name="Thursday" Type="Int32" />
+    <Property Name="Friday" Type="Int32" />
+    <Property Name="Saturday" Type="Int32" />
+    <Property Name="Sunday" Type="Int32" />
+    <NavigationProperty Name="DailyHour" Relationship="DispatcherDBModel.FK_WeeklyHours_Friday" FromRole="WeeklyHours" ToRole="DailyHours" />
+    <NavigationProperty Name="DailyHour1" Relationship="DispatcherDBModel.FK_WeeklyHours_Monday" FromRole="WeeklyHours" ToRole="DailyHours" />
+    <NavigationProperty Name="DailyHour2" Relationship="DispatcherDBModel.FK_WeeklyHours_Saturday" FromRole="WeeklyHours" ToRole="DailyHours" />
+    <NavigationProperty Name="DailyHour3" Relationship="DispatcherDBModel.FK_WeeklyHours_Sunday" FromRole="WeeklyHours" ToRole="DailyHours" />
+    <NavigationProperty Name="DailyHour4" Relationship="DispatcherDBModel.FK_WeeklyHours_Thursday" FromRole="WeeklyHours" ToRole="DailyHours" />
+    <NavigationProperty Name="DailyHour5" Relationship="DispatcherDBModel.FK_WeeklyHours_Tuesday" FromRole="WeeklyHours" ToRole="DailyHours" />
+    <NavigationProperty Name="DailyHour6" Relationship="DispatcherDBModel.FK_WeeklyHours_Wednesday" FromRole="WeeklyHours" ToRole="DailyHours" />
+    <NavigationProperty Name="Engineers" Relationship="DispatcherDBModel.FK_Engineer_WeeklyHours" FromRole="WeeklyHours" ToRole="Engineer" />
+  </EntityType>
+  <Association Name="FK_Task_Customer">
+    <End Role="Customer" Type="DispatcherDBModel.Customer" Multiplicity="0..1" />
+    <End Role="Task" Type="DispatcherDBModel.Task" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Task">
+        <PropertyRef Name="CustomerAccount" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WeeklyHours_Friday">
+    <End Role="DailyHours" Type="DispatcherDBModel.DailyHour" Multiplicity="0..1" />
+    <End Role="WeeklyHours" Type="DispatcherDBModel.WeeklyHour" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DailyHours">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="WeeklyHours">
+        <PropertyRef Name="Friday" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WeeklyHours_Monday">
+    <End Role="DailyHours" Type="DispatcherDBModel.DailyHour" Multiplicity="0..1" />
+    <End Role="WeeklyHours" Type="DispatcherDBModel.WeeklyHour" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DailyHours">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="WeeklyHours">
+        <PropertyRef Name="Monday" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WeeklyHours_Saturday">
+    <End Role="DailyHours" Type="DispatcherDBModel.DailyHour" Multiplicity="0..1" />
+    <End Role="WeeklyHours" Type="DispatcherDBModel.WeeklyHour" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DailyHours">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="WeeklyHours">
+        <PropertyRef Name="Saturday" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WeeklyHours_Sunday">
+    <End Role="DailyHours" Type="DispatcherDBModel.DailyHour" Multiplicity="0..1" />
+    <End Role="WeeklyHours" Type="DispatcherDBModel.WeeklyHour" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DailyHours">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="WeeklyHours">
+        <PropertyRef Name="Sunday" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WeeklyHours_Thursday">
+    <End Role="DailyHours" Type="DispatcherDBModel.DailyHour" Multiplicity="0..1" />
+    <End Role="WeeklyHours" Type="DispatcherDBModel.WeeklyHour" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DailyHours">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="WeeklyHours">
+        <PropertyRef Name="Thursday" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WeeklyHours_Tuesday">
+    <End Role="DailyHours" Type="DispatcherDBModel.DailyHour" Multiplicity="0..1" />
+    <End Role="WeeklyHours" Type="DispatcherDBModel.WeeklyHour" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DailyHours">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="WeeklyHours">
+        <PropertyRef Name="Tuesday" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WeeklyHours_Wednesday">
+    <End Role="DailyHours" Type="DispatcherDBModel.DailyHour" Multiplicity="0..1" />
+    <End Role="WeeklyHours" Type="DispatcherDBModel.WeeklyHour" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DailyHours">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="WeeklyHours">
+        <PropertyRef Name="Wednesday" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Engineer_WeeklyHours">
+    <End Role="WeeklyHours" Type="DispatcherDBModel.WeeklyHour" Multiplicity="0..1" />
+    <End Role="Engineer" Type="DispatcherDBModel.Engineer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WeeklyHours">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Engineer">
+        <PropertyRef Name="WorkingHours" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Task_Engineer">
+    <End Role="Engineer" Type="DispatcherDBModel.Engineer" Multiplicity="0..1" />
+    <End Role="Task" Type="DispatcherDBModel.Task" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Engineer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Task">
+        <PropertyRef Name="AssignedTo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EngineerSkill_SkillKey">
+    <End Role="Skill" Type="DispatcherDBModel.Skill" Multiplicity="0..1" />
+    <End Role="EngineerSkill" Type="DispatcherDBModel.EngineerSkill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Skill">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EngineerSkill">
+        <PropertyRef Name="SkillKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Task_Status">
+    <End Role="Status" Type="DispatcherDBModel.Status" Multiplicity="0..1" />
+    <End Role="Task" Type="DispatcherDBModel.Task" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Status">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Task">
+        <PropertyRef Name="Status" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Task_Task">
+    <End Role="Task" Type="DispatcherDBModel.Task" Multiplicity="1" />
+    <End Role="Task1" Type="DispatcherDBModel.Task" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Task">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Task1">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Task_TaskCategory">
+    <End Role="TaskCategory" Type="DispatcherDBModel.TaskCategory" Multiplicity="0..1" />
+    <End Role="Task" Type="DispatcherDBModel.Task" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TaskCategory">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Task">
+        <PropertyRef Name="TaskCategory" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
